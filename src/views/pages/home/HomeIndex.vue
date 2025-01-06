@@ -186,6 +186,8 @@ export default {
             }
         },
         goToDocument(item) {
+            if (getSelection().toString().length) return;
+
             this.$router.push({
                 name: "document",
                 query: {

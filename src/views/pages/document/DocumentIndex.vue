@@ -267,6 +267,8 @@ const isCanDirectDownload = (item) => {
 };
 
 const goToDetailHandler = (item) => {
+    if (getSelection().toString().length) return;
+
     router.push({ name: "document-show", params: { id: item.doh_id } });
 };
 

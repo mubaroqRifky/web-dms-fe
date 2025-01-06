@@ -134,6 +134,11 @@ const params = reactive({
 
 const action = ref(null);
 
+const ACTION_DOCUMENT = {
+    APPROVE_DOWNLOAD: "10", // action approve download
+    DOWNLOAD_DOCUMENT: "20", // action download document
+};
+
 const searchField = reactive(["name", "kategori"]);
 const itemShows = reactive([5, 10, 50, 100]);
 const itemsSelected = ref([]);
@@ -151,8 +156,6 @@ const getDataDownload = async () => {
 
         if (data?.action?.length) {
             listAction.value = data.action;
-        } else {
-            itemsSelected.value = null;
         }
 
         items.value = data.paging.data;
@@ -245,10 +248,10 @@ const closeModalForm = () => {
 
 const submitHandler = () => {
     switch (action.value) {
-        case "10": // action approve download
+        case ACTION_DOCUMENT.APPROVE_DOWNLOAD:
             modal_form.value = true;
             break;
-        case "20": // action download dokument
+        case ACTION_DOCUMENT.DOWNLOAD_DOCUMENT:
             Modal.confirm(`Yakin ingin download dokumen?`);
             Modal.onconfirm = processDownloadDocument;
             break;
@@ -263,7 +266,7 @@ const getActionState = computed(() => {
     };
 
     switch (action.value) {
-        case "10": // action approve download
+        case ACTION_DOCUMENT.APPROVE_DOWNLOAD:
             data.title = "Permintaan Unduh Dokumen?";
             break;
         default:
@@ -275,7 +278,7 @@ const getActionState = computed(() => {
 
 const confirmSubmitHandler = () => {
     switch (action.value) {
-        case "10": // action approve download
+        case ACTION_DOCUMENT.APPROVE_DOWNLOAD:
             Modal.confirm(`Apakah anda yakin ingin proses data?`);
             Modal.onconfirm = processApproveDownload;
             break;
