@@ -140,7 +140,7 @@
                                 v-if="!getOptions.length && !loading"
                             >
                                 <p
-                                    class="px-6 py-3 flex gap-2 items-center text-gray"
+                                    class="px-4 py-3 flex gap-2 items-center text-gray"
                                 >
                                     Tidak ada data.
                                 </p>
@@ -149,13 +149,12 @@
                             <li
                                 v-if="hasNextPage || loading"
                                 ref="load"
-                                class="flex justify-center items-center"
+                                class="flex h-20"
                             >
                                 <p
-                                    class="px-6 py-2 text-gray"
-                                    :class="!getOptions.length ? 'my-4' : ''"
+                                    class="px-4 py-3 text-gray"
+                                    :class="!getOptions.length ? '' : ''"
                                 >
-                                    <!-- <BeatLoader size="10px" color="#a9dcff" /> -->
                                     loading...
                                 </p>
                             </li>
