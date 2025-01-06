@@ -3,7 +3,8 @@
         <div class="flex justify-end">
             <FilterDocument
                 :list-filter="list_filter"
-                @filter="filterHanlder"
+                :filter-params="filter_params"
+                @filter="filterHandler"
             />
         </div>
 
@@ -286,11 +287,13 @@ const getListFilterDokumen = async () => {
     }
 };
 
-const filterHanlder = (params) => {
+const filter_params = ref({});
+const filterHandler = (params) => {
     initialPage.filter(params);
+    filter_params.value = params;
 };
 
-if (form) filterHanlder({ kategori: [form] });
+if (form) filterHandler({ kategori: [form] });
 
 const closeModalForm = () => {
     modal_form.value = false;

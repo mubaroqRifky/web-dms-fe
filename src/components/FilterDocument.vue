@@ -191,13 +191,26 @@
 import { ref, reactive, watch, onMounted } from "vue";
 import ModalFilter from "@/components/modal/ModalFilter.vue";
 import Document from "@/apis/Document";
-import { formatDefaultDate } from "@/helpers/utils";
 
 const props = defineProps({
     listFilter: {
         type: Object,
         default: function () {
             return {};
+        },
+    },
+    filterParams: {
+        type: Object,
+        default: function () {
+            return {
+                status: "",
+                companies: [],
+                divisi: [],
+                kategori: [],
+                plants: [],
+                tanggal: [],
+                createbyme: "",
+            };
         },
     },
 });
@@ -212,28 +225,10 @@ const filter_params = reactive({
     plants: [],
     tanggal: [],
     createbyme: "",
+    ...props.filterParams,
 });
 
-const options = reactive({
-    list_status: [],
-    list_division: [],
-    list_tipe_dokumen: [],
-
-    list_company: [],
-    list_plant: [],
-});
-
-watch(
-    () => props.listFilter,
-    (newFilter) => {
-        options.list_status = newFilter.list_status;
-        options.list_division = newFilter.division;
-        options.list_tipe_dokumen = newFilter.list_tipe_dokumen;
-    }
-);
-
-const isFilter = ref(false);
-watch(filter_params, () => {
+const hasFiltered = () => {
     let result = false;
     for (const key in filter_params) {
         if (typeof filter_params[key] == "string") {
@@ -248,15 +243,36 @@ watch(filter_params, () => {
             }
         }
     }
+    console.log(result, filter_params, "ini result");
+    return result;
+};
 
-    isFilter.value = result;
+const isFilter = ref(hasFiltered());
+
+const options = reactive({
+    list_status: [],
+    list_division: [],
+    list_tipe_dokumen: [],
+    list_company: [],
+    list_plant: [],
+});
+
+watch(
+    () => props.listFilter,
+    (newFilter) => {
+        options.list_status = newFilter.list_status;
+        options.list_division = newFilter.division;
+        options.list_tipe_dokumen = newFilter.list_tipe_dokumen;
+    }
+);
+
+watch(filter_params, () => {
+    isFilter.value = hasFiltered();
 });
 
 const applyFilterHanlder = () => {
-    const filter = {
-        ...filter_params,
-        tanggal: filter_params.tanggal.join(","),
-    };
+    const tanggal = filter_params.tanggal.join(",");
+    const filter = { ...filter_params, tanggal };
     emit("filter", filter);
 };
 
