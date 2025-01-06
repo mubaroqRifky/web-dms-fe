@@ -25,13 +25,13 @@
                 />
 
                 <button
-                    v-if="isCanRequestDownload"
+                    v-if="listAction.length"
                     @click="submitHandler"
                     :disabled="!itemsSelected?.length"
                     class="text-white text-xs px-4 py-2 rounded-md flex justify-center items-center"
                     :class="!itemsSelected?.length ? 'bg-gray' : 'bg-primary'"
                 >
-                    Request Download
+                    Submit
                 </button>
             </div>
 
@@ -280,7 +280,21 @@ const getListFilterDokumen = async () => {
         if (data?.action?.length) {
             listAction.value = data.action;
         } else {
-            itemsSelected.value = [];
+            listAction.value = [];
+        }
+
+        if (isCanDelete()) {
+            listAction.value.push({
+                kd_reff: "02",
+                nm_reff: "Delete Dokumen",
+            });
+        }
+
+        if (isCanRequestDownload()) {
+            listAction.value.push({
+                kd_reff: "01",
+                nm_reff: "Request Download",
+            });
         }
     } catch (error) {
         throw new ErrorHandler(error);
@@ -302,8 +316,6 @@ const closeModalForm = () => {
 };
 
 const submitHandler = () => {
-    action.value = ACTION_DOCUMENT.REQUEST_DOWNLOAD;
-
     switch (action.value) {
         case ACTION_DOCUMENT.REQUEST_DOWNLOAD:
             modal_form.value = true;
