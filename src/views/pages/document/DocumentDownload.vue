@@ -108,7 +108,7 @@ import Loading from "@/controllers/state/LoadingController";
 import { formatLocaleDate } from "@/helpers/utils";
 
 const headers = ref([
-    { text: "Bentuk Dokumen", value: "doh_tagging_desc" },
+    { text: "Bentuk Dokumen", value: "nm_reff" },
     { text: "No. Dokumen", value: "doh_title" },
     { text: "Nama Dokumen", value: "doh_docform" },
     { text: "Status", value: "approvel" },

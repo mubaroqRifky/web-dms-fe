@@ -25,17 +25,13 @@
                 />
 
                 <button
-                    v-if="listAction.length"
+                    v-if="isCanRequestDownload"
                     @click="submitHandler"
-                    :disabled="!itemsSelected?.length || !action"
+                    :disabled="!itemsSelected?.length"
                     class="text-white text-xs px-4 py-2 rounded-md flex justify-center items-center"
-                    :class="
-                        !itemsSelected?.length || !action
-                            ? 'bg-gray'
-                            : 'bg-primary'
-                    "
+                    :class="!itemsSelected?.length ? 'bg-gray' : 'bg-primary'"
                 >
-                    Submit
+                    Request Download
                 </button>
             </div>
 
@@ -262,8 +258,12 @@ const isCanDelete = (item) => {
     return can("DOCUMENT_DELETE");
 };
 
+const isCanRequestDownload = (item) => {
+    return role("REQUEST_DOWNLOAD");
+};
+
 const isCanDirectDownload = (item) => {
-    return role("MR_MRP") && can("REQUEST_DOWNLOAD");
+    return role("MR_MRP");
 };
 
 const goToDetailHandler = (item) => {
@@ -280,7 +280,7 @@ const getListFilterDokumen = async () => {
         if (data?.action?.length) {
             listAction.value = data.action;
         } else {
-            itemsSelected.value = null;
+            itemsSelected.value = [];
         }
     } catch (error) {
         throw new ErrorHandler(error);
@@ -302,6 +302,8 @@ const closeModalForm = () => {
 };
 
 const submitHandler = () => {
+    action.value = ACTION_DOCUMENT.REQUEST_DOWNLOAD;
+
     switch (action.value) {
         case ACTION_DOCUMENT.REQUEST_DOWNLOAD:
             modal_form.value = true;
@@ -486,7 +488,7 @@ const closePreviewHandler = () => {
 };
 
 const confirmDownload = (item) => {
-    Modal.confirm(`Apakah anda yakin ingin download data ini?`);
+    Modal.confirm(`Apakah anda yakin ingin download dokumen ini?`);
     Modal.onconfirm = () => downloadFile(item.details);
 };
 
