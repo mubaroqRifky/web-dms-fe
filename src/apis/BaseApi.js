@@ -1,5 +1,6 @@
 import Axios from "axios";
 import Loading from "@/controllers/state/LoadingController";
+import { getErrorDataBlob, isJsonBlob } from "../helpers/utils";
 
 class BaseApi {
     static async get(url, config) {
@@ -7,8 +8,11 @@ class BaseApi {
             const { data } = await Axios.get(url, config);
             return data;
         } catch (error) {
-            throw error;
-        } finally {
+            if (isJsonBlob(error?.response?.data)) {
+                throw await getErrorDataBlob(error);
+            } else {
+                throw error;
+            }
         }
     }
 

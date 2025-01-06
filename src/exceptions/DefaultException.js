@@ -6,9 +6,9 @@ export default class DefaultException extends Error {
     }
 
     static run(error = {}) {
-        Modal.error({
-            content: error.name || "Error Uncaught",
-            subcontent: error.message || "Something went wrong!",
-        });
+        const content = error.data?.exception || error.name || "Error Uncaught";
+        const subcontent = error.message || "Something went wrong!";
+
+        Modal.error({ content, subcontent });
     }
 }

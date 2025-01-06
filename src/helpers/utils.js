@@ -87,3 +87,18 @@ export const formatLocaleDate = (date) => {
         return date;
     }
 };
+
+export const isJsonBlob = (data) => {
+    return data instanceof Blob && data.type === "application/json";
+};
+
+export const getErrorDataBlob = async (error) => {
+    try {
+        const errorData = await error.response?.data?.text();
+        const parseError = JSON.parse(errorData);
+
+        return parseError;
+    } catch (err) {
+        return error;
+    }
+};
