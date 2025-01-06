@@ -243,7 +243,7 @@ const hasFiltered = () => {
             }
         }
     }
-    console.log(result, filter_params, "ini result");
+
     return result;
 };
 

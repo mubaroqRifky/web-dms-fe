@@ -549,7 +549,7 @@ const getFileToDownload = (url, file_name) => {
 
 onMounted(() => {
     getListFilterDokumen();
-    initialPage.index();
+    if (!form) initialPage.index();
 });
 </script>
 

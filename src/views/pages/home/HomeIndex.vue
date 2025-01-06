@@ -189,7 +189,7 @@ export default {
             this.$router.push({
                 name: "document",
                 query: {
-                    form: [item.kd_reff],
+                    form: item.kd_reff,
                 },
             });
         },

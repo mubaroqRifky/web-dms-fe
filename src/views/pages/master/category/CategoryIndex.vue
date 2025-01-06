@@ -137,8 +137,6 @@ const resetForm = () => {
 };
 
 const editCategory = (item) => {
-    console.log(item);
-
     openForm();
 
     selected_category.value = item;
