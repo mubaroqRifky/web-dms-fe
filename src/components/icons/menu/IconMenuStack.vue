@@ -1,0 +1,31 @@
+<template lang="">
+    <span :style="styles" :class="className">
+        <svg
+            :style="{ width, height }"
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+        >
+            <g
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+            >
+                <path d="m16 10l4-2l-8-4l-8 4l4 2" />
+                <path fill="currentColor" d="m12 12l-4-2l-4 2l8 4l8-4l-4-2z" />
+                <path d="m8 14l-4 2l8 4l8-4l-4-2" />
+            </g>
+        </svg>
+    </span>
+</template>
+
+<script>
+export default {
+    props: ["width", "height", "styles", "className"],
+};
+</script>
+
+<style lang=""></style>

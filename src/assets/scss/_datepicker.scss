@@ -1,0 +1,48 @@
+.dp__input {
+    @apply text-xs;
+}
+
+.dp__range_start,
+.dp__range_end {
+    @apply bg-primary;
+}
+
+.dp__action_cancel {
+    @apply bg-danger dark:text-gray-dark text-white;
+
+    &:hover {
+        @apply border-danger;
+    }
+}
+
+.dp__action_buttons .dp__action_select {
+    @apply bg-primary;
+
+    &:hover {
+        @apply bg-primary;
+    }
+}
+
+.dp__range_between {
+    @apply dark:bg-primaryLight bg-primaryTransparent;
+}
+
+.dp__calendar_row {
+    @apply m-0;
+}
+
+.dp__today {
+    @apply border-primary;
+}
+
+.dp__menu {
+    @apply text-xs dark:bg-gray-dark;
+
+    background: linear-gradient(
+        147deg,
+        rgba(255, 255, 255, 0.8) 0%,
+        rgba(255, 255, 255, 0.5) 100%
+    );
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+}

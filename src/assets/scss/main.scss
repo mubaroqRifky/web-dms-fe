@@ -1,0 +1,26 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import "variables";
+@import "reset";
+@import "utils";
+@import "animation";
+@import "scrollbar";
+@import "table";
+@import "button";
+@import "datepicker";
+@import "vselect";
+@import "base";
+
+#app {
+    @apply flex h-screen w-screen overflow-hidden width-constraint;
+}
+
+.mobile-width-constraint {
+    @apply max-w-md w-full mx-auto my-0;
+}
+
+.width-constraint {
+    @apply max-w-[150rem] w-full mx-auto my-0;
+}

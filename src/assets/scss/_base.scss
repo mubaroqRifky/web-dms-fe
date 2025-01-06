@@ -1,0 +1,51 @@
+@layer base {
+    :root {
+        --primary: #d2a92a;
+        --primaryDark: #e8ae00;
+        --primaryLight: #fff9ea;
+
+        --primaryTransparent: #d2a92a3d;
+        --primaryOutline: #d2a92abd;
+
+        --secondary: #4ba58c;
+        --secondaryDark: #00a375;
+        --secondaryLight: #63c2a7;
+
+        --secondaryTransparent: #4ba58ca3;
+        --secondaryOutline: #0caa7ea3;
+
+        --black: #000;
+        --white: #ffffff;
+        --whiteTransparent: #ffffff82;
+        --gray: #dadada;
+        --softGray: #f8f8f8;
+        --lightGray: #f4f4f4;
+        --darkGray: #64748b;
+        --gray-dark: #273444;
+    }
+
+    :root[data-theme="dark"] {
+        --primary: #d2a92a;
+        --primaryDark: #e8ae00;
+        --primaryLight: #191d20;
+
+        --primaryTransparent: #d2a92a3d;
+        --primaryOutline: #d2a92abd;
+
+        --secondary: #4ba58c;
+        --secondaryDark: #00a375;
+        --secondaryLight: #63c2a7;
+
+        --secondaryTransparent: #4ba58ca3;
+        --secondaryOutline: #0caa7ea3;
+
+        --black: #000;
+        --white: #212530;
+        --whiteTransparent: #ffffff82;
+        --gray: #dadada;
+        --softGray: #151e25;
+        --lightGray: #f4f4f4;
+        --darkGray: #64748b;
+        --gray-dark: white;
+    }
+}

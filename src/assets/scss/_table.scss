@@ -1,0 +1,237 @@
+.vue3-easy-data-table.main-table {
+    --easy-table-header-item-padding: 10px 15px;
+    --easy-table-body-row-height: 50px;
+    --easy-table-body-item-padding: 10px 15px;
+    --easy-table-message-font-color: var(--gray-dark);
+
+    --easy-table-rows-per-page-selector-width: 70px;
+    --easy-table-rows-per-page-selector-option-padding: 10px;
+    --easy-table-rows-per-page-selector-z-index: 1;
+    --easy-table-loading-mask-background-color: transparent;
+
+    // --easy-table-body-row-hover-background-color: var(--lightGray);
+    --easy-table-body-row-hover-font-color: var(--gray-dark);
+
+    box-shadow: 1px 5px 10px #0000002e;
+    @apply rounded-t-[.6rem] dark:border-primary border-[#f4eacc];
+
+    table {
+        @apply min-w-full w-auto;
+
+        thead {
+            @apply z-0;
+
+            th {
+                @apply dark:bg-primary bg-primaryTransparent px-4 py-4  text-gray-dark font-semibold dark:border-primary;
+
+                &:first-child {
+                    @apply rounded-tl-lg;
+                }
+                &:last-child {
+                    @apply rounded-tr-lg;
+                }
+            }
+        }
+
+        tbody.vue3-easy-data-table__body {
+            tr {
+                &:hover {
+                    td {
+                        @apply dark:bg-primaryTransparent bg-softGray;
+                    }
+                }
+            }
+            td {
+                @apply dark:bg-[#2C394B] text-gray-dark bg-white dark:border-white;
+            }
+        }
+    }
+
+    &.fixed {
+        .fixed-header {
+            max-height: 60vh;
+            overflow: auto;
+        }
+    }
+
+    .vue3-easy-data-table__footer,
+    .vue3-easy-data-table__main {
+        @apply dark:bg-[#2C394B] text-gray-dark bg-white dark:border-primary;
+
+        .easy-data-table__rows-selector ul.select-items li {
+            @apply dark:bg-[#2C394B] text-gray-dark;
+            &.selected {
+                @apply dark:text-gray-dark text-white;
+            }
+            &:hover {
+                @apply bg-primary dark:text-gray-dark text-white;
+            }
+        }
+    }
+}
+
+.vue3-easy-data-table.primary-table {
+    --easy-table-header-item-padding: 10px 15px;
+    --easy-table-body-row-height: 50px;
+    --easy-table-body-item-padding: 10px 15px;
+    --easy-table-message-font-color: var(--gray-dark);
+
+    --easy-table-rows-per-page-selector-width: 70px;
+    --easy-table-rows-per-page-selector-option-padding: 10px;
+    --easy-table-rows-per-page-selector-z-index: 1;
+    --easy-table-loading-mask-background-color: transparent;
+
+    // --easy-table-body-row-hover-background-color: var(--primaryTransparent);
+    --easy-table-body-row-hover-font-color: var(--gray-dark);
+
+    box-shadow: 1px 5px 10px #0000002e;
+    @apply dark:border-primary border-[#f4eacc];
+
+    table {
+        @apply min-w-full w-auto;
+
+        thead {
+            @apply z-0;
+
+            th {
+                @apply dark:bg-primary bg-primaryTransparent px-4 py-4 text-gray-dark font-semibold dark:border-primary;
+            }
+        }
+
+        tbody.vue3-easy-data-table__body {
+            tr {
+                &:first-child {
+                    @apply rounded-t-lg overflow-hidden;
+                }
+                &:last-child {
+                    @apply rounded-b-lg;
+                }
+                &:hover {
+                    td {
+                        @apply dark:bg-primaryTransparent bg-softGray;
+                    }
+                }
+            }
+            td {
+                @apply dark:bg-[#2C394B] text-gray-dark bg-white dark:border-white;
+            }
+        }
+    }
+
+    &.fixed {
+        .fixed-header {
+            max-height: 60vh;
+            overflow: auto;
+        }
+    }
+
+    .vue3-easy-data-table__footer,
+    .vue3-easy-data-table__main {
+        @apply dark:bg-[#2C394B] text-gray-dark bg-white dark:border-primary;
+
+        .easy-data-table__rows-selector ul.select-items li {
+            @apply dark:bg-[#2C394B] text-gray-dark;
+            &.selected {
+                @apply dark:text-gray-dark text-white;
+            }
+            &:hover {
+                @apply bg-primary dark:text-gray-dark text-white;
+            }
+        }
+    }
+}
+
+.vue3-easy-data-table.secondary-table {
+    --easy-table-header-item-padding: 10px 15px;
+    --easy-table-body-row-height: 50px;
+    --easy-table-body-item-padding: 10px 15px;
+    --easy-table-message-font-color: var(--gray-dark);
+
+    --easy-table-rows-per-page-selector-width: 70px;
+    --easy-table-rows-per-page-selector-option-padding: 10px;
+    --easy-table-rows-per-page-selector-z-index: 1;
+    --easy-table-loading-mask-background-color: transparent;
+
+    --easy-table-body-row-hover-background-color: var(--primaryTransparent);
+    --easy-table-body-row-hover-font-color: var(--gray-dark);
+
+    @apply border-none;
+
+    table {
+        @apply min-w-full w-auto;
+
+        thead {
+            @apply z-0;
+
+            th {
+                @apply dark:bg-primary bg-[#e5f9e9] px-4 py-4 text-gray-dark font-semibold dark:border-primary;
+
+                &:first-child {
+                    @apply rounded-tl-lg;
+                }
+                &:last-child {
+                    @apply rounded-tr-lg;
+                }
+            }
+        }
+
+        tbody.vue3-easy-data-table__body {
+            tr {
+                &:first-child {
+                    @apply rounded-t-lg overflow-hidden;
+                }
+                &:last-child {
+                    @apply rounded-b-lg;
+                }
+            }
+            td {
+                @apply dark:bg-[#2C394B] text-gray-dark bg-[#e5f9e9] dark:border-white;
+            }
+        }
+    }
+
+    &.fixed {
+        .fixed-header {
+            max-height: 60vh;
+            overflow: auto;
+        }
+    }
+
+    .vue3-easy-data-table__footer,
+    .vue3-easy-data-table__main {
+        @apply dark:bg-[#2C394B] text-gray-dark bg-[#e5f9e9] dark:border-primary;
+
+        .easy-data-table__rows-selector ul.select-items li {
+            @apply dark:bg-[#2C394B] text-gray-dark;
+            &.selected {
+                @apply dark:text-gray-dark text-white;
+            }
+            &:hover {
+                @apply bg-primary dark:text-gray-dark text-white;
+            }
+        }
+    }
+}
+
+.previous-page__click-button {
+    > span.arrow.arrow-right {
+        @apply border-gray-dark;
+    }
+
+    &.first-page {
+        > span.arrow.arrow-right {
+            @apply dark:border-darkGray;
+        }
+    }
+}
+.next-page__click-button {
+    > span.arrow.arrow-left {
+        @apply border-gray-dark;
+    }
+
+    &.last-page {
+        > span.arrow.arrow-left {
+            @apply dark:border-darkGray;
+        }
+    }
+}
