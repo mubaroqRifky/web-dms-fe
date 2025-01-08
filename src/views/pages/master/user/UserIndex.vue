@@ -26,23 +26,40 @@
                     {{ header.text }}
                 </div>
             </template>
+            <template #item-roles="item">
+                <div class="flex justify-center w-full">
+                    {{
+                        item?.roles?.length
+                            ? item.roles.map((v) => v.name).join(", ")
+                            : "-"
+                    }}
+                </div>
+            </template>
             <template #item-action="item">
                 <div class="flex gap-2 items-center justify-center">
-                    <button class="text-green-dark" @click="editUser(item)">
+                    <button
+                        v-if="isCanEdit"
+                        class="text-green-dark"
+                        @click="editUser(item)"
+                    >
                         <IconEdit width="20px" height="20px" />
                     </button>
-                    <button class="text-success" @click="showUser(item)">
+                    <button
+                        v-if="isCanView"
+                        class="text-success"
+                        @click="showUser(item)"
+                    >
                         <IconShow width="20px" height="20px" />
                     </button>
                     <button
-                        v-if="isCanEdit"
+                        v-if="false"
                         class="text-green-dark"
                         @click="initialPage.editItem(item.muser_id)"
                     >
                         <IconEdit width="20px" height="20px" />
                     </button>
                     <button
-                        v-if="isCanView"
+                        v-if="false"
                         class="text-success"
                         @click="initialPage.showItem(item.muser_id)"
                     >
@@ -128,155 +145,6 @@
                             no-validity
                         />
                     </div>
-
-                    <div
-                        v-if="false"
-                        class="flex flex-col gap-2 p-2 rounded-md border border-solid border-primary"
-                    >
-                        <label class="flex gap-4 items-center mb-0">
-                            <span class="text-[.7rem] font-medium">
-                                Request Download
-                            </span>
-                            <div class="switch">
-                                <input
-                                    type="checkbox"
-                                    :true-value="1"
-                                    :false-value="0"
-                                    v-model="form.custodian"
-                                    :disabled="cannot_create || isShowing"
-                                />
-
-                                <span class="slider round"></span>
-                            </div>
-                        </label>
-
-                        <p class="text-[.7rem] leading-4">
-                            User dapat melakukan request download dokumen pada
-                            menu daftar dokumen.
-                        </p>
-                    </div>
-
-                    <section v-if="false" class="flex flex-col gap-2 mt-2">
-                        <p class="text-[.7rem] font-medium">Pilih Role</p>
-
-                        <div
-                            class="flex flex-col rounded-md border border-solid border-primary divide-y divide-solid divide-primary"
-                        >
-                            <template
-                                v-for="(item, index) of options.list_role"
-                            >
-                                <div
-                                    v-if="item.value != 30"
-                                    class="flex flex-col gap-1 px-2 py-4"
-                                >
-                                    <span
-                                        class="text-[.7rem] font-medium flex justify-between items-center"
-                                    >
-                                        {{ item.text }}
-
-                                        <input
-                                            type="radio"
-                                            name="select_role"
-                                            :value="item.value"
-                                            :checked="
-                                                item.value == form.user_role
-                                            "
-                                            v-model="form.user_role"
-                                            :disabled="
-                                                cannot_create || isShowing
-                                            "
-                                        />
-                                    </span>
-
-                                    <p
-                                        v-if="
-                                            item.value ==
-                                            USER_ROLE.ADMINISTRATOR
-                                        "
-                                        class="text-[.7rem] leading-4"
-                                    >
-                                        User dapat melakukan semua akses yaitu
-                                        Add, Edit, Deactivate User, Assign Role,
-                                        menentukan approver, upload dokumen dan
-                                        melihat dokumen.
-                                    </p>
-                                    <p
-                                        v-else-if="
-                                            item.value == USER_ROLE.UPLOADER
-                                        "
-                                        class="text-[.7rem] leading-4"
-                                    >
-                                        User dapat melakukan upload document dan
-                                        lihat dokumen.
-                                    </p>
-                                    <p
-                                        v-else-if="
-                                            item.value == USER_ROLE.VIEWER
-                                        "
-                                        class="text-[.7rem] leading-4"
-                                    >
-                                        User hanya dapat melihat dokumen.
-                                    </p>
-                                    <p
-                                        v-else-if="
-                                            item.value == USER_ROLE.SUPER_USER
-                                        "
-                                        class="text-[.7rem] leading-4"
-                                    >
-                                        User dapat menghapus dokumen.
-                                    </p>
-
-                                    <label
-                                        class="mt-2 flex flex-col gap-1"
-                                        v-if="
-                                            item.value == USER_ROLE.UPLOADER &&
-                                            current_atasan
-                                        "
-                                    >
-                                        <span
-                                            class="text-[.7rem] font-medium flex justify-between items-center"
-                                        >
-                                            Nama Approver
-                                        </span>
-                                        <div class="flex justify-between gap-3">
-                                            <p class="text-[.7rem] leading-4">
-                                                {{
-                                                    current_atasan.name +
-                                                    " | " +
-                                                    current_atasan.email
-                                                }}
-                                            </p>
-                                        </div>
-                                    </label>
-
-                                    <label
-                                        class="mt-2 flex flex-col gap-1"
-                                        v-if="item.value == USER_ROLE.VIEWER"
-                                    >
-                                        <span
-                                            class="text-[.7rem] font-medium flex justify-between items-center"
-                                        >
-                                            Restrict Document
-                                        </span>
-                                        <div class="flex justify-between">
-                                            <p class="text-[.7rem] leading-4">
-                                                User dapat membuka dokumen
-                                                terbatas
-                                            </p>
-                                            <input
-                                                type="checkbox"
-                                                name="restrict"
-                                                v-model="form.restrict"
-                                                :disabled="
-                                                    cannot_create || isShowing
-                                                "
-                                            />
-                                        </div>
-                                    </label>
-                                </div>
-                            </template>
-                        </div>
-                    </section>
                 </section>
             </section>
         </ModalForm>
@@ -367,31 +235,40 @@ const resetForm = () => {
     isShowing.value = false;
 };
 
+// route_edit = "master-user-edit";
+// route_show = "master-user-show";
+
 const editUser = (item) => {
-    openForm();
+    // openForm();
 
-    selected_user.value = item;
+    // selected_user.value = item;
 
-    form.email = item.user_email;
-    form.user_role = item.role_id;
-    form.restrict = item.restrict;
-    form.doc_div = item.docdiv_id;
-    form.company = item.company;
-    form.plant = item.plant;
-    form.custodian = item.muser_custodian;
+    // form.email = item.user_email;
+    // form.user_role = item.role_id;
+    // form.restrict = item.restrict;
+    // form.doc_div = item.docdiv_id;
+    // form.company = item.company;
+    // form.plant = item.plant;
+    // form.custodian = item.muser_custodian;
 
-    form.vw_doc_div = item.vw_docdiv_id
-        ? item.vw_docdiv_id.split(",").map((v) => Number(v))
-        : [];
+    // form.vw_doc_div = item.vw_docdiv_id
+    //     ? item.vw_docdiv_id.split(",").map((v) => Number(v))
+    //     : [];
 
-    getAtasan(form.email);
-    getListPlant(form.company);
+    // getAtasan(form.email);
+    // getListPlant(form.company);
+
+    localStorage.setItem("user_detail", JSON.stringify(item));
+    initialPage.editItem(item.muser_id);
 };
 
 const isShowing = ref(false);
 const showUser = (item) => {
-    isShowing.value = true;
-    editUser(item);
+    // isShowing.value = true;
+    // editUser(item);
+
+    localStorage.setItem("user_detail", JSON.stringify(item));
+    initialPage.showItem(item.muser_id);
 };
 
 const options = reactive({
@@ -426,6 +303,9 @@ const getDataUser = async () => {
     options.list_company = data?.list_company || [];
     options.list_role = data?.role || [];
     options.list_user = data?.user || [];
+
+    localStorage.setItem("list_company", JSON.stringify(data?.list_company));
+    localStorage.setItem("list_division", JSON.stringify(data?.doc_div));
 };
 
 const current_atasan = ref(null);

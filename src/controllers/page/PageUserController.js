@@ -21,6 +21,7 @@ class PageUserController extends BasicInitialPage {
             { text: "Name", value: "user_name" },
             { text: "Email", value: "user_email" },
             { text: "Status", value: "status" },
+            { text: "Role", value: "roles" },
             { text: "Division", value: "docdiv_desc" },
             { text: "", value: "action" },
         ];
@@ -30,6 +31,11 @@ class PageUserController extends BasicInitialPage {
         this.form = {
             name: "",
             email: "",
+
+            company: [],
+            plant: [],
+            doc_div: [],
+            vw_doc_div: [],
         };
     }
 
@@ -85,7 +91,6 @@ class PageUserController extends BasicInitialPage {
         try {
             this.state_form.loading = true;
             const { data } = await User.getData(id);
-
             this.payload.muser_id = data.muser_id;
             this.payload.name = data.muser_name;
             this.payload.email = data.email;

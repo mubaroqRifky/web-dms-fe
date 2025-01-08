@@ -23,12 +23,64 @@
                 v-model="payload.email"
             />
 
-            <div>
+            <div class="grid grid-cols-2 gap-4">
+                <BasicSelect
+                    dir="col"
+                    label="Company"
+                    placeholder="Company"
+                    :options="options.list_company"
+                    :reduce="(v) => v.value"
+                    v-model="payload.company"
+                    :disabled="loading || initialPage.isShow"
+                    multiple
+                    required
+                    no-validity
+                    @option:selected="selectCompanyHandler"
+                />
+                <BasicSelect
+                    dir="col"
+                    label="Plant"
+                    placeholder="Plant"
+                    :options="options.list_plant"
+                    :reduce="(v) => v.value"
+                    v-model="payload.plant"
+                    :disabled="loading || initialPage.isShow"
+                    multiple
+                    required
+                    no-validity
+                />
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <BasicSelect
+                    dir="col"
+                    label="Pilih Divisi"
+                    placeholder="Pilih Divisi"
+                    :options="options.list_division"
+                    :reduce="(v) => v.value"
+                    v-model="payload.doc_div"
+                    :disabled="loading || initialPage.isShow"
+                    no-validity
+                />
+                <BasicSelect
+                    dir="col"
+                    label="View Divisi Lain"
+                    placeholder="View Divisi Lain"
+                    :options="options.list_division"
+                    :reduce="(v) => v.value"
+                    v-model="payload.vw_doc_div"
+                    :disabled="loading || initialPage.isShow"
+                    multiple
+                    no-validity
+                />
+            </div>
+
+            <div class="mt-4">
                 <button
-                    v-if="false"
+                    v-if="initialPage.isEdit"
                     class="btn btn-sm btn-primary"
                     :disabled="loading"
-                    @click="initialPage.confirmUpdate()"
+                    @click="confirmUpdateUser"
                 >
                     Update
                 </button>
@@ -143,14 +195,19 @@ import {
     onMounted,
     getCurrentInstance,
 } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import ModalForm from "@/components/modal/ModalForm.vue";
 import PageUserController from "@/controllers/page/PageUserController";
+import Modal from "@/controllers/state/ModalController";
 import InputValidationController from "@/controllers/state/InputValidationController";
 import PagePermissionController from "@/controllers/page/PagePermissionController";
 import PageRoleController from "@/controllers/page/PageRoleController";
+import Document from "@/apis/Document";
+import User from "@/apis/User";
 
 const route = useRoute();
+const router = useRouter();
+
 const title = route.meta.title;
 const id = route.params.id;
 
@@ -160,6 +217,61 @@ const errors = computed(() => InputValidationController.get());
 
 const itemsSelected = ref([]);
 const modalTable = ref(false);
+
+const options = reactive({
+    list_division: [],
+    list_company: [],
+    list_plant: [],
+});
+
+let user_detail = localStorage.getItem("user_detail");
+const list_company = localStorage.getItem("list_company");
+const list_division = localStorage.getItem("list_division");
+
+if (list_company) {
+    options.list_company = JSON.parse(list_company);
+}
+
+if (list_division) {
+    options.list_division = JSON.parse(list_division);
+}
+
+const selectCompanyHandler = (value) => {
+    getListPlant(payload.value.company);
+};
+
+const getListPlant = async (companies = []) => {
+    try {
+        if (!companies?.length) return;
+
+        const { data } = await Document.getListPlant({
+            company: companies,
+        });
+
+        options.list_plant = data.list_plant || [];
+    } catch (error) {
+        throw new ErrorHandler(error);
+    }
+};
+
+if (user_detail) {
+    user_detail = JSON.parse(user_detail);
+
+    if (user_detail.muser_id != id) router.back();
+
+    if (user_detail.company?.length) {
+        getListPlant(user_detail.company);
+    }
+
+    payload.value.company = user_detail.company;
+    payload.value.plant = user_detail.plant;
+    payload.value.doc_div = user_detail.docdiv_id;
+    payload.value.vw_doc_div = user_detail.vw_docdiv_id
+        .split(",")
+        .map((val) => Number(val));
+} else {
+    router.back();
+}
 
 const activeTab = ref("roles");
 const tabs = ref([
@@ -268,6 +380,49 @@ const syncHandler = async () => {
         throw new ErrorHandler(error);
     } finally {
         closeModalTable();
+    }
+};
+
+const confirmUpdateUser = () => {
+    Modal.confirm("Yakin ingin update data?");
+    Modal.onconfirm = prosesUpdateUser;
+};
+
+const prosesUpdateUser = async () => {
+    try {
+        let message = "";
+        const payloadData = {
+            email: payload.value.email,
+            user_role: payload.value.user_role,
+            nik_atasan: payload.value.nik_atasan,
+            restrict: payload.value.restrict,
+            doc_div: payload.value.doc_div,
+            company: payload.value.company,
+            plant: payload.value.plant,
+            custodian: payload.value.custodian,
+        };
+
+        if (initialPage.isEdit) {
+            payloadData.user_id = id;
+            payloadData.vw_docdiv_id = payload.value.vw_doc_div.join(",");
+
+            const { message: msg } = await User.update(payloadData);
+            message = msg;
+        } else {
+            payloadData.vw_docdiv = payload.value.vw_doc_div.join(",");
+
+            const { message: msg } = await User.create(payloadData);
+            message = msg;
+        }
+
+        Modal.success(message);
+        Modal.onclose = () => {
+            localStorage.removeItem("user_detail");
+            localStorage.removeItem("list_company");
+            localStorage.removeItem("list_division");
+        };
+    } catch (error) {
+        throw new ErrorHandler(error);
     }
 };
 
