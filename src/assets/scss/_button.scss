@@ -1,0 +1,120 @@
+button {
+    @apply focus:outline-none;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn {
+    @apply rounded-md text-base dark:text-gray-dark text-white flex gap-2 items-center justify-center px-10 py-3 whitespace-nowrap;
+    position: relative;
+    overflow: hidden;
+    transition: all 100ms ease;
+
+    &:disabled {
+        @apply bg-darkGray hover:bg-darkGray;
+    }
+}
+
+.btn.btn-sm {
+    @apply px-4 py-1.5 text-xs;
+}
+
+.btn.btn-md {
+    @apply px-4 py-2 text-sm;
+}
+
+.btn-primary {
+    @apply border border-solid border-primary bg-primary;
+
+    &:disabled {
+        @apply hover:bg-gray border-gray;
+        background: lightgray !important;
+    }
+
+    &:hover {
+        @apply dark:bg-primaryLight bg-primaryTransparent;
+    }
+
+    &:active {
+        @apply bg-primaryOutline;
+    }
+
+    &:focus {
+        @apply outline-2 outline-offset-1 outline-primaryLight;
+    }
+}
+
+.btn-secondary {
+    @apply border border-solid border-primaryOutline bg-primaryOutline;
+
+    &:disabled {
+        @apply hover:bg-gray;
+        background: lightgray !important;
+    }
+
+    &:active {
+        @apply bg-[#5ec4ff];
+    }
+
+    &:focus {
+        @apply outline-2 outline-offset-1 outline-[#79ceff];
+    }
+}
+
+.btn-tertiary {
+    @apply dark:bg-gray-dark dark:text-white bg-white border border-primary border-solid text-primary;
+
+    &:disabled {
+        @apply hover:bg-gray border-gray dark:text-gray-dark text-white;
+        background: lightgray !important;
+    }
+
+    &:focus {
+        @apply outline-2 outline-offset-1 outline-primaryLight;
+    }
+}
+
+.btn-danger {
+    @apply bg-danger;
+
+    &:disabled {
+        @apply bg-darkGray hover:bg-darkGray;
+    }
+
+    &:hover {
+        @apply bg-[#ff6d6d];
+    }
+
+    &:active {
+        @apply bg-[#ff4545];
+    }
+
+    &:focus {
+        @apply outline-2 outline-offset-1 outline-dangerOutline;
+    }
+}
+
+.btn-file {
+    @apply bg-lightGray hover:bg-softGray text-gray-dark text-xs;
+
+    &:disabled {
+        @apply bg-darkGray hover:bg-darkGray;
+    }
+
+    &:focus {
+        @apply outline-2 outline-offset-1 outline-darkGray;
+    }
+}
+
+.text-link {
+    @apply text-success hover:text-primary transition-all flex items-center gap-2 text-sm;
+}
+
+.card-button-container {
+    @apply grid gap-4;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+
+    @media only screen and (max-width: 426px) {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    }
+}

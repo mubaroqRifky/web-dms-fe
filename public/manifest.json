@@ -1,0 +1,40 @@
+{
+    "name": "Starter App",
+    "short_name": "Starter App",
+    "description": "Starter App",
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#00BE35",
+    "theme_color": "#00BE35",
+    "icons": [
+        {
+            "src": "/images/Group 3-72.png",
+            "sizes": "72x72",
+            "type": "image/png",
+            "density": "2.0",
+            "purpose": "any"
+        },
+        {
+            "src": "/images/Group 3-96.png",
+            "sizes": "96x96",
+            "type": "image/png",
+            "density": "2.0",
+            "purpose": "any"
+        },
+        {
+            "src": "/images/Group 3-144.png",
+            "sizes": "144x144",
+            "type": "image/png",
+            "density": "2.0",
+            "purpose": "any"
+        },
+        {
+            "src": "/images/Group 3-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "density": "2.0",
+            "purpose": "any"
+        }
+    ]
+}
