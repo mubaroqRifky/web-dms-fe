@@ -158,7 +158,7 @@ const isCanAdd = computed(() => {
     return can("USER_ADD");
 });
 const isCanView = computed(() => {
-    return can("USER_VIEW_DETAIL");
+    return true;
 });
 const isCanEdit = computed(() => {
     return can("USER_EDIT");
@@ -302,7 +302,6 @@ const getListPlant = async (companies = []) => {
 const prosesSubmitUser = async () => {
     try {
         let message = "";
-
         const payload = {
             email: form.email,
             user_role: form.user_role,
