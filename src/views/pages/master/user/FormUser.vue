@@ -3,7 +3,17 @@
         <section
             class="p-4 shadow-md border border-solid border-softGray flex flex-col gap-4 dark:bg-primaryTransparent bg-white"
         >
-            <h2 class="font-medium my-2">Form {{ title }}</h2>
+            <div class="flex gap-4 items-center justify-between">
+                <h2 class="font-medium my-2">Form {{ title }}</h2>
+                <button
+                    v-if="initialPage.isEdit && isCanDeactivate"
+                    class="btn btn-sm btn-danger"
+                    :disabled="loading"
+                    @click="confirmDeactivate"
+                >
+                    Deactivate User
+                </button>
+            </div>
             <BasicInput
                 class="lg:w-1/2"
                 label="Name"
@@ -319,6 +329,10 @@ const isCanAssign = computed(() => {
     return false;
 });
 
+const isCanDeactivate = computed(() => {
+    return can("USER_DEACTIVE");
+});
+
 const mapItems = computed(() => {
     return stateTableModal.value.items.map((val) => {
         let result = {};
@@ -380,6 +394,26 @@ const syncHandler = async () => {
         throw new ErrorHandler(error);
     } finally {
         closeModalTable();
+    }
+};
+
+const confirmDeactivate = () => {
+    Modal.confirm("Yakin ingin deactivate user?");
+    Modal.onconfirm = prosesDeactivateUser;
+};
+
+const prosesDeactivateUser = async () => {
+    try {
+        const { data, message } = await User.deactivate({
+            id,
+            type: "deactivate_user",
+        });
+
+        Modal.success(message);
+        Modal.onclose = router.back;
+        console.log(data, message, "deactivate user");
+    } catch (error) {
+        throw new ErrorHandler(error);
     }
 };
 

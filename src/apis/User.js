@@ -33,6 +33,11 @@ class User extends BaseApi {
         return data;
     }
 
+    static async deactivate(payload) {
+        const data = await super.post("settinguser/delete", payload);
+        return data;
+    }
+
     static async getAtasan(params) {
         const data = await super.get("/settinguser/get_atasanbyemail", {
             params,

@@ -158,7 +158,7 @@ const isCanAdd = computed(() => {
     return can("USER_ADD");
 });
 const isCanView = computed(() => {
-    return can("USER_VIEW_DETAIL");
+    return true;
 });
 const isCanEdit = computed(() => {
     return can("USER_EDIT");
