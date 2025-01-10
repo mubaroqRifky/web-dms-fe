@@ -82,7 +82,7 @@
                     :disabled="loading"
                     @click="confirmUpdateUser"
                 >
-                    Update
+                    Update User
                 </button>
                 <button
                     v-if="initialPage.isCreate"
