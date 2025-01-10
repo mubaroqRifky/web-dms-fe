@@ -3,7 +3,7 @@
         <div class="flex gap-4 items-end justify-between">
             <div class="flex gap-2 items-center">
                 <BasicSelect
-                    v-if="listAction.length"
+                    v-if="listAction?.length"
                     placeholder="Pilih Aksi"
                     mode="client"
                     no-validity
@@ -16,7 +16,7 @@
                 />
 
                 <button
-                    v-if="listAction.length"
+                    v-if="listAction?.length"
                     @click="submitHandler"
                     :disabled="!itemsSelected?.length || !action"
                     class="text-white text-xs px-4 py-2 rounded-md flex justify-center items-center"

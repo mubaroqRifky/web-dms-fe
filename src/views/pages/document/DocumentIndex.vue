@@ -11,7 +11,7 @@
         <div class="flex gap-4 items-end justify-between">
             <div class="flex gap-2 items-center">
                 <BasicSelect
-                    v-if="listAction.length"
+                    v-if="listAction?.length"
                     class="w-full"
                     placeholder="Pilih Aksi"
                     mode="client"
@@ -25,7 +25,7 @@
                 />
 
                 <button
-                    v-if="listAction.length"
+                    v-if="listAction?.length"
                     @click="submitHandler"
                     :disabled="!itemsSelected?.length"
                     class="text-white text-xs px-4 py-2 rounded-md flex justify-center items-center"
