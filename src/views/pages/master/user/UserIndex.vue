@@ -51,20 +51,6 @@
                     >
                         <IconShow width="20px" height="20px" />
                     </button>
-                    <button
-                        v-if="false"
-                        class="text-green-dark"
-                        @click="initialPage.editItem(item.muser_id)"
-                    >
-                        <IconEdit width="20px" height="20px" />
-                    </button>
-                    <button
-                        v-if="false"
-                        class="text-success"
-                        @click="initialPage.showItem(item.muser_id)"
-                    >
-                        <IconShow width="20px" height="20px" />
-                    </button>
                 </div>
             </template>
         </vTable>
@@ -72,7 +58,7 @@
         <ModalForm
             content="Invite People"
             v-if="modal_form"
-            :disabled="cannot_create || isShowing"
+            :disabled="cannot_create || !form.email"
             @close="closeForm"
             @proses="prosesSubmitUser"
         >
@@ -89,7 +75,7 @@
                         placeholder="Email CPP"
                         type="email"
                         v-model="form.email"
-                        :disabled="!!selected_user || isShowing"
+                        :disabled="!!selected_user"
                         required
                         no-validity
                         @value:change="emailSearchHandler"
@@ -102,7 +88,7 @@
                             :options="options.list_company"
                             :reduce="(v) => v.value"
                             v-model="form.company"
-                            :disabled="cannot_create || isShowing"
+                            :disabled="cannot_create"
                             multiple
                             required
                             no-validity
@@ -115,7 +101,7 @@
                             :options="options.list_plant"
                             :reduce="(v) => v.value"
                             v-model="form.plant"
-                            :disabled="cannot_create || isShowing"
+                            :disabled="cannot_create"
                             multiple
                             required
                             no-validity
@@ -130,7 +116,7 @@
                             :options="options.list_division"
                             :reduce="(v) => v.value"
                             v-model="form.doc_div"
-                            :disabled="cannot_create || isShowing"
+                            :disabled="cannot_create"
                             no-validity
                         />
                         <BasicSelect
@@ -140,7 +126,7 @@
                             :options="options.list_division"
                             :reduce="(v) => v.value"
                             v-model="form.vw_doc_div"
-                            :disabled="cannot_create || isShowing"
+                            :disabled="cannot_create"
                             multiple
                             no-validity
                         />
@@ -231,42 +217,14 @@ const resetForm = () => {
     form.company = [];
     form.plant = [];
     form.custodian = null;
-
-    isShowing.value = false;
 };
 
-// route_edit = "master-user-edit";
-// route_show = "master-user-show";
-
 const editUser = (item) => {
-    // openForm();
-
-    // selected_user.value = item;
-
-    // form.email = item.user_email;
-    // form.user_role = item.role_id;
-    // form.restrict = item.restrict;
-    // form.doc_div = item.docdiv_id;
-    // form.company = item.company;
-    // form.plant = item.plant;
-    // form.custodian = item.muser_custodian;
-
-    // form.vw_doc_div = item.vw_docdiv_id
-    //     ? item.vw_docdiv_id.split(",").map((v) => Number(v))
-    //     : [];
-
-    // getAtasan(form.email);
-    // getListPlant(form.company);
-
     localStorage.setItem("user_detail", JSON.stringify(item));
     initialPage.editItem(item.muser_id);
 };
 
-const isShowing = ref(false);
 const showUser = (item) => {
-    // isShowing.value = true;
-    // editUser(item);
-
     localStorage.setItem("user_detail", JSON.stringify(item));
     initialPage.showItem(item.muser_id);
 };
@@ -344,6 +302,7 @@ const getListPlant = async (companies = []) => {
 const prosesSubmitUser = async () => {
     try {
         let message = "";
+
         const payload = {
             email: form.email,
             user_role: form.user_role,

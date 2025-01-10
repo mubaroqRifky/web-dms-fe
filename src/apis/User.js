@@ -13,16 +13,6 @@ class User extends BaseApi {
         return data;
     }
 
-    static async getTeam(params) {
-        const data = await super.get("/user/team", { params });
-        return data;
-    }
-
-    static async createData(payload) {
-        const data = await super.post("/user", payload);
-        return data;
-    }
-
     static async updateData(id, payload) {
         const data = await super.put("/user/" + id, payload);
         return data;
